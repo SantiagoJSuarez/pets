@@ -6,22 +6,25 @@ import { isEmpty } from 'lodash'
 
 
 function App() {
-  const [datapet,setDatapet] = useState({namePet:"",type:"",race:"",date:"", nameOwner:"", phone:"",address:"",email:"" })
+  const [datapet,setDatapet] = 
+  useState({namePet:"",type:"",race:"",date:"", nameOwner:"", phone:"",address:"",email:"" })
   
 
-  const addData= (e) => {
+  const addData = (e) => 
+  {
     e.preventDefault()
 
-    if(isEmpty(datapet)  ) {
-    
+    if(isEmpty(datapet) ) 
+ 
+  {
     console.log("Not all data is full")
     return
   }
-
+   
   console.log("Ok")
-  setDatapet({namePet:"",type:"",race:"",date:"", nameOwner:"", phone:"",address:"",email:""})
-  
+  setDatapet({namePet:"",type:"",race:"",date:"", nameOwner:"", phone:"",address:"",email:"" })
   }
+
 
   return (
    <div className="container mt-5">
@@ -36,14 +39,12 @@ function App() {
          <li className="list-group-item" >
            <span className="lead"> Pets Data  </span>
 
-           <button className="btn btn-warning btn-sm float-right"> Edit </button>
+
            <button className="btn btn-danger btn-sm float-right mx-2" > Delete </button>
+           <button className="btn btn-warning btn-sm float-right"> Edit </button>
+           
          </li>
-
          </ul>
-
-
-
        </div>
 
 
@@ -64,10 +65,8 @@ function App() {
          <input 
          type="text"
          className="form-control mb-4"
-        
          onChange={(text) => setDatapet(text.target.value)}
          value={datapet.type}
-         
          />
 
         <h6>Ingrese raza de la mascota </h6>
