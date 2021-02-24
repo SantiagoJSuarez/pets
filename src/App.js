@@ -6,35 +6,20 @@ import { isEmpty } from 'lodash'
 
 
 function App() {
-  const [namePet, setNamePet] = useState(null)
-  const [type, setType] = useState(null)
-  const [race, setRace] = useState(null)
-  const [date, setDate] = useState(null)
-  const [nameOwner, setNameOwner] = useState(null)
-  const [phone, setPhone] = useState(null)
-  const [address, setAddress] = useState(null)
-  const [email, setEmail] = useState(null)
+  const [datapet,setDatapet] = useState({namePet:"",type:"",race:"",date:"", nameOwner:"", phone:"",address:"",email:"" })
+  
 
   const addData= (e) => {
     e.preventDefault()
 
-    if(isEmpty(namePet) && isEmpty(type) && isEmpty(type) && isEmpty(race) && isEmpty(date) && isEmpty(nameOwner) 
-    && isEmpty(phone) && isEmpty(address) && isEmpty(email) ) {
+    if(isEmpty(datapet)  ) {
     
-    console.log("not all data is full")
+    console.log("Not all data is full")
     return
   }
 
   console.log("Ok")
-  
-  setNamePet(null)
-  setType(null)
-  setRace(null)
-  setDate(null)
-  setNameOwner(null)
-  setPhone(null)
-  setAddress(null)
-  setEmail(null)
+  setDatapet({namePet:"",type:"",race:"",date:"", nameOwner:"", phone:"",address:"",email:""})
   
   }
 
@@ -64,28 +49,33 @@ function App() {
 
        <div className="col-4">
        <h4 className="text-center"> Patients Data </h4>
+       <hr/>
 
        <form onSubmit={addData}>
 
+       <h6>Ingrese nombre de la mascota  </h6>
        <input 
          type="text"
-         className="form-control mb-2"
-         placeholder="Nombre de la mascota"
-         onChange={(text) => setNamePet(text.target.value)}
-         value={namePet}
+         className="form-control mb-4"
+         onChange={(text) => setDatapet(text.target.value)}
+         value={datapet.namePet}
          />
-
+         <h6>Ingrese tipo de animal de la mascota  </h6>
          <input 
          type="text"
-         className="form-control mb-2"
-         placeholder="Tipo de la mascota"
-         onChange={(text) => setType(text.target.value)}
+         className="form-control mb-4"
+        
+         onChange={(text) => setDatapet(text.target.value)}
+         value={datapet.type}
+         
          />
 
+        <h6>Ingrese raza de la mascota </h6>
          <input 
          type="text"
-         className="form-control mb-2"
-         placeholder="Ingrese raza de la mascota"
+         className="form-control mb-4"
+         onChange={(text) => setDatapet(text.target.value)}
+         value={datapet.race}
          />
          
          
@@ -93,31 +83,41 @@ function App() {
         <h6>Ingrese fecha de nacimiento de la mascota </h6>
         <input 
          type="date"
-         className="form-control mb-2"
+         className="form-control mb-4"
+         onChange={(text) => setDatapet(text.target.value)}
+         value={datapet.date}
          />
 
+         <h6>Ingrese nombre completo del propietario</h6>
          <input 
          type="text"
-         className="form-control mb-2"
-         placeholder="Ingrese Nombre completo del propietario"
+         className="form-control mb-4"
+         onChange={(text) => setDatapet(text.target.value)}
+         value={datapet.nameOwner}
          />
 
+        <h6>Ingrese telefono del propietario</h6>
          <input 
          type="number"
-         className="form-control mb-2"
-         placeholder="Ingrese Telefono del propietario"
-         />
-         
-        <input 
-         type="text"
-         className="form-control mb-2"
-         placeholder="Ingrese direccion del propietario"
+         className="form-control mb-4"
+         onChange={(text) => setDatapet(text.target.value)}
+         value={datapet.phone}
          />
 
+         <h6>Ingrese direccion del propietario</h6>
         <input 
          type="text"
-         className="form-control mb-2"
-         placeholder="Ingrese Email del propietario"
+         className="form-control mb-4"
+         onChange={(text) => setDatapet(text.target.value)}
+         value={datapet.address}
+         />
+
+        <h6>Ingrese Email del propietario  </h6>
+        <input 
+         type="text"
+         className="form-control mb-4"
+         onChange={(text) => setDatapet(text.target.value)}
+         value={datapet.email}
          />
          
          <button
@@ -126,10 +126,6 @@ function App() {
           >
            Send Data
          </button>
-     
-
-
-
 
        </form>
 
