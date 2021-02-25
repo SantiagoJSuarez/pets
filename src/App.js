@@ -11,6 +11,9 @@ function App() {
 
   const [registers, setResgisters] = useState([])
 
+  const [editMode, setEditMode] = useState(false)
+
+  const [id, setId] = useState("")
 
   const addData = (e) => 
   {
@@ -21,28 +24,40 @@ function App() {
 
     console.log("Not all data is full")
     return 
- 
- }
-
-    const newData ={
-      id: shortid.generate(),
-      Information:datapet
-      
+     }
     }
 
-    setResgisters([...registers, newData])
+ const saveData = (e) => 
+ {
+   e.preventDefault()
 
+   if( isEmpty(datapet))
+    {
+      console.log("Not all data is full")
+      return  
+    }
+
+    const editedRegisters = registers.map(item => item.id ===id ? {id,registers: datapet}: item)
+    setResgisters(editedRegisters)
+    setEditMode(false)
     setDatapet(voidDatas())
+    setId("")
  
   }
 
 const deleteData = (id) => {
 
-  const filteredRegister = registers.filter(datapet => datapet.id !== id)
-  setResgisters(filteredRegister)
+    const filteredRegister = registers.filter(datapet => datapet.id !== id)
+    setResgisters(filteredRegister)
 
-}
+  }
 
+     const editData = (Thedata) => {
+     setDatapet(Thedata.registers)
+     setEditMode(true)
+     setId(id)
+
+   }
 
   return (
    <div className="container mt-5">
@@ -70,16 +85,19 @@ const deleteData = (id) => {
      
      
                 <button 
-                className="btn btn-danger btn-sm float-right mx-2"
-                onClick={()=> deleteData(datapet.id)}
-                
-                
-                > Delete </button>
-   
-   
-   
-                <button className="btn btn-warning btn-sm float-right"> Edit </button>
-                
+                   className="btn btn-danger btn-sm float-right mx-2"
+                   onClick={()=> deleteData(datapet.id)}  
+                   > 
+                  Delete 
+                </button>
+
+                <button 
+                  className="btn btn-warning btn-sm float-right"
+                  onClick={()=> editData(datapet)}
+                >
+                  Edit 
+                 </button>
+
               </li>
               ))
    
@@ -93,10 +111,12 @@ const deleteData = (id) => {
 
 
        <div className="col-4">
-       <h4 className="text-center"> Patients Data </h4>
+       <h4 className="text-center"> 
+       {editMode ? "modify data":"Patients Data" } 
+       </h4>
        <hr/>
 
-       <form onSubmit={addData}>
+       <form onSubmit={editMode ? saveData : addData}>
 
        <h6>Ingrese nombre de la mascota  </h6>
        <input 
@@ -164,10 +184,10 @@ const deleteData = (id) => {
          />
          
          <button
-          className="btn btn-dark btn-block"
+          className={editMode ? "btn btn-warning btn-block" : "btn btn-dark btn-block"}
           type="submit"
           >
-           Send Data
+           { editMode ?  "Add Data" :"Send Data"  }
          </button>
 
        </form>
