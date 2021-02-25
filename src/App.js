@@ -1,29 +1,47 @@
 
 import React,{useState} from 'react'
-import { isEmpty } from 'lodash'
-
-
-
+import {isEmpty,size} from 'lodash'
+import shortid from 'shortid'
 
 function App() {
   const [datapet,setDatapet] = 
-  useState({namePet:"",type:"",race:"",date:"", nameOwner:"", phone:"",address:"",email:"" })
-  
+  useState({namePet:'',type:'',race:'',date:'', nameOwner:'', phone:'',address:'',email:'' })
+
+  const voidDatas = () => { return {namePet:"",type:"",race:"",date:"", nameOwner:"", phone:"",address:"",email:"", }}
+
+  const [registers, setResgisters] = useState([])
+
 
   const addData = (e) => 
   {
     e.preventDefault()
 
-    if(isEmpty(datapet) ) 
- 
-  {
+    if( isEmpty(datapet))
+     {
+
     console.log("Not all data is full")
-    return
+    return 
+ 
+ }
+
+    const newData ={
+      id: shortid.generate(),
+      Information:datapet
+      
+    }
+
+    setResgisters([...registers, newData])
+
+    setDatapet(voidDatas())
+ 
   }
-   
-  console.log("Ok")
-  setDatapet({namePet:"",type:"",race:"",date:"", nameOwner:"", phone:"",address:"",email:"" })
-  }
+
+const deleteData = (id) => {
+
+  const filteredRegister = registers.filter(datapet => datapet.id !== id)
+  setResgisters(filteredRegister)
+
+}
 
 
   return (
@@ -35,16 +53,42 @@ function App() {
      <div className="row">
        <div className="col-8">
          <h4 className="text-center" >Patients List</h4>
-         <ul className="list-group">
-         <li className="list-group-item" >
-           <span className="lead"> Pets Data  </span>
 
+         {
+           size(registers) == 0 ?(
 
-           <button className="btn btn-danger btn-sm float-right mx-2" > Delete </button>
-           <button className="btn btn-warning btn-sm float-right"> Edit </button>
-           
-         </li>
-         </ul>
+            <h3 className="text-center">no records </h3>
+
+            ) : (
+              <ul className="list-group">
+              {
+                registers.map((datapet)=> (
+   
+                <li className="list-group-item"  key={datapet.id}>
+                <span className="lead"> {datapet.Information}
+                 </span>
+     
+     
+                <button 
+                className="btn btn-danger btn-sm float-right mx-2"
+                onClick={()=> deleteData(datapet.id)}
+                
+                
+                > Delete </button>
+   
+   
+   
+                <button className="btn btn-warning btn-sm float-right"> Edit </button>
+                
+              </li>
+              ))
+   
+              }
+   
+            </ul>
+            )
+  
+       } 
        </div>
 
 
@@ -83,7 +127,7 @@ function App() {
         <input 
          type="date"
          className="form-control mb-4"
-         onChange={(text) => setDatapet(text.target.value)}
+         onChange={(date) => setDatapet(date.target.value)}
          value={datapet.date}
          />
 
@@ -99,7 +143,7 @@ function App() {
          <input 
          type="number"
          className="form-control mb-4"
-         onChange={(text) => setDatapet(text.target.value)}
+         onChange={(number) => setDatapet(number.target.value)}
          value={datapet.phone}
          />
 
